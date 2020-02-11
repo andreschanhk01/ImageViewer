@@ -487,6 +487,16 @@ open class GalleryViewController: UIPageViewController, ItemControllerDelegate {
         }
     }
 
+    open func directPage(toIndex index: Int) {
+        guard currentIndex != index && index >= 0 && index < self.itemsDataSource.itemCount() else { return }
+
+        let imageViewController = self.pagingDataSource.createItemController(index)
+        let direction: UIPageViewController.NavigationDirection = index > currentIndex ? .forward : .reverse
+
+        setViewControllers([imageViewController], direction: direction, animated: true, completion: nil)
+
+    }
+
     func removePage(atIndex index: Int, completion: @escaping () -> Void) {
 
         // If removing last item, go back, otherwise, go forward
